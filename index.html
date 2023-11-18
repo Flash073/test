@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>CateConnect</title>
+</head>
+<body onload="getloc();">
+	<h1>CareConnect.com</h1> <br> <hr>
+	
+	<form action="" method="post" accept-charset="utf-8">
+		longitude
+		<input type="text" name="longitude" id="lng"> <br>
+		latitude
+		<input type="text" name="latitude" id="lat"> <br>
+	</form>
+	
+	<script type="text/javascript" charset="utf-8">
+		function getloc(){
+			navigator.geolocation.getCurrentPosition(funcoords,errorf);
+		//	console.log(locationObject);
+			
+			
+		}
+			function funcoords(arg1r){
+	document.getElementById("lat").value="arg1r.coords.latitude;";
+				
+				/*
+				var cobj=arg1r;
+	console.log("latitude :"+ arg1r.coords.latitude);
+				*/
+//	console.log("longitude :"+ locationObject.coords.longitude);
+ // console.log(`More or less ${locationObject.coords.accuracy} meters.`);
+		}
+		
+			function errorf(error){
+				console.log(error);
+			}
+	</script>
+	
+</body>
+</html>
