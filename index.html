@@ -5,20 +5,48 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>CateConnect</title>
+	<style>
+		table {
+			color:red;
+			padding:20px;
+			text-align: center;
+			border-collapse: collapse;
+			width:96vw;
+		}
+	</style>
 </head>
 <body onload="getloc();">
 	<h1>CareConnect.com</h1> <br> <hr>
 	
 	<form action="" method="post" accept-charset="utf-8">
+		Name 
+		<input type="text" name="name" id="name"> <br>
 		longitude
 		<input type="text" name="longitude" id="lng"> <br>
 		latitude
 		<input type="text" name="latitude" id="lat"> <br>
-		<input type="button" value="Get Location" onClick="getloc()" />
-
+		Accuracy
+		<input type="text" name="accuracy" id="accu" disabled=""> <br>
+		<input type="button" value="Get Location" onClick="getloc()" /> <br>
+		<input type="button" value="submit" onClick="addList()" /> <br>
 	</form>
+	<hr>
+	<table border="1" id="table">
+		<tr>
+			<th>#</th>
+			<th>Name</th>
+			<th>latitude</th>
+			<th>longitude</th>
+			<th>Map</th>
+		</tr>
+		
+	</table>
+	
+	
+	
 	
 	<script type="text/javascript" charset="utf-8">
+		var i=0;
 		function getloc(){
 			navigator.geolocation.getCurrentPosition(funcoords,errorf);
 		//	console.log(locationObject);
@@ -26,20 +54,36 @@
 			
 		}
 			function funcoords(arg1r){
-	document.getElementById("lat").value="arg1r.coords.latitude;";
 				
 				/*
-				var cobj=arg1r;
-	console.log("latitude :"+ arg1r.coords.latitude);
 				*/
-//	console.log("longitude :"+ locationObject.coords.longitude);
- // console.log(`More or less ${locationObject.coords.accuracy} meters.`);
+				var cobj=arg1r;
+				document.getElementById("lat").value=arg1r.coords.latitude;
+				document.getElementById("lng").value=arg1r.coords.longitude;
+				document.getElementById("accu").value=arg1r.coords.accuracy;
+				
+				console.log("latitude :"+ arg1r.coords.latitude);
+				console.log("longitude :"+ arg1r.coords.longitude);
+				console.log(`More or less ${arg1r.coords.accuracy} meters.`);
 		}
 		
 			function errorf(error){
 				console.log(error);
 			}
+			function EleById(id){
+				return document.getElementById(id);
+			}
+			function addList(){
+				i++;
+				console.log('"https://www.google.com/maps?g='+EleById("lat").value+','+EleById("lng").value+'&hl=es;z=14&output=embed"');
+				document.getElementById("table").innerHTML=document.getElementById("table").innerHTML+"<tr><td>"+i+"</td><td>"+EleById("name").value+"</td><td>"+EleById("lat").value+"</td><td>"+EleById("lng").value+"</td><td>"+'<iframe src="https://www.google.com/maps?g='+EleById("lat").value+','+EleById("lng").value+'&hl=es;z=14&output=embed" frameborder="0"></iframe>'+"</td></tr>";
+			}
 	</script>
+	
+	
+	
+	<iframe src="https://www.google.com/maps?g="+EleById(lat)+","+EleById(lng)+"&hl=es;z=14&output=embed" frameborder="0"></iframe> <hr>
+	<iframe src="https://www.google.com/maps/place/18.162342,+73.835518" frameborder="0"></iframe>
 	
 </body>
 </html>
